@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProjetoEditDlg" widgetVar="ProjetoEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.EditProjetoTitle}">
+            <h:form id="ProjetoEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{projetoController.selected != null}">
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_idProjeto}" for="idProjeto" />
+                        <p:inputText id="idProjeto" value="#{projetoController.selected.idProjeto}" title="#{bundle.EditProjetoTitle_idProjeto}" required="true" requiredMessage="#{bundle.EditProjetoRequiredMessage_idProjeto}"/>
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_nomeProjeto}" for="nomeProjeto" />
+                        <p:inputText id="nomeProjeto" value="#{projetoController.selected.nomeProjeto}" title="#{bundle.EditProjetoTitle_nomeProjeto}" required="true" requiredMessage="#{bundle.EditProjetoRequiredMessage_nomeProjeto}"/>
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_dataAtivacao}" for="dataAtivacao" />
+                        <p:calendar id="dataAtivacao" pattern="MM/dd/yyyy" value="#{projetoController.selected.dataAtivacao}" title="#{bundle.EditProjetoTitle_dataAtivacao}" required="true" requiredMessage="#{bundle.EditProjetoRequiredMessage_dataAtivacao}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_dataDesativacao}" for="dataDesativacao" />
+                        <p:calendar id="dataDesativacao" pattern="MM/dd/yyyy" value="#{projetoController.selected.dataDesativacao}" title="#{bundle.EditProjetoTitle_dataDesativacao}" required="true" requiredMessage="#{bundle.EditProjetoRequiredMessage_dataDesativacao}" showOn="button"/>
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_idEmpresa}" for="idEmpresa" />
+                        <p:selectOneMenu id="idEmpresa" value="#{projetoController.selected.idEmpresa}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{empresaController.itemsAvailableSelectOne}"
+                                           var="idEmpresaItem"
+                                           itemValue="#{idEmpresaItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.EditProjetoLabel_idStatus}" for="idStatus" />
+                        <p:selectOneMenu id="idStatus" value="#{projetoController.selected.idStatus}" >
+                            <f:selectItem itemLabel="#{bundle.SelectOneMessage}"/>
+                            <f:selectItems value="#{statusController.itemsAvailableSelectOne}"
+                                           var="idStatusItem"
+                                           itemValue="#{idStatusItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{projetoController.update}" value="#{bundle.Save}" update="display,:ProjetoListForm:datalist,:growl" oncomplete="handleSubmit(args, 'ProjetoEditDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProjetoEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

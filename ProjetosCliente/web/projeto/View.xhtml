@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProjetoViewDlg" widgetVar="ProjetoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewProjetoTitle}">
+            <h:form id="ProjetoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{projetoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewProjetoLabel_idProjeto}"/>
+                        <h:outputText value="#{projetoController.selected.idProjeto}" title="#{bundle.ViewProjetoTitle_idProjeto}"/>
+                        <h:outputText value="#{bundle.ViewProjetoLabel_nomeProjeto}"/>
+                        <h:outputText value="#{projetoController.selected.nomeProjeto}" title="#{bundle.ViewProjetoTitle_nomeProjeto}"/>
+                        <h:outputText value="#{bundle.ViewProjetoLabel_dataAtivacao}"/>
+                        <h:outputText value="#{projetoController.selected.dataAtivacao}" title="#{bundle.ViewProjetoTitle_dataAtivacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProjetoLabel_dataDesativacao}"/>
+                        <h:outputText value="#{projetoController.selected.dataDesativacao}" title="#{bundle.ViewProjetoTitle_dataDesativacao}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{bundle.ViewProjetoLabel_idEmpresa}"/>
+                        <h:outputText value="#{projetoController.selected.idEmpresa}" title="#{bundle.ViewProjetoTitle_idEmpresa}"/>
+                        <h:outputText value="#{bundle.ViewProjetoLabel_idStatus}"/>
+                        <h:outputText value="#{projetoController.selected.idStatus}" title="#{bundle.ViewProjetoTitle_idStatus}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="ProjetoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

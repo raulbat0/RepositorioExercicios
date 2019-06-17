@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioProjetoCreateDlg" widgetVar="UsuarioProjetoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateUsuarioProjetoTitle}">
+            <h:form id="UsuarioProjetoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioProjetoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateUsuarioProjetoLabel_idUsuario}" for="idUsuario" />
+                        <p:selectOneMenu id="idUsuario" value="#{usuarioProjetoController.selected.idUsuario}" >
+                            <f:selectItems value="#{usuarioController.itemsAvailableSelectOne}"
+                                           var="idUsuarioItem"
+                                           itemValue="#{idUsuarioItem}"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel value="#{bundle.CreateUsuarioProjetoLabel_idProjeto}" for="idProjeto" />
+                        <p:selectOneMenu id="idProjeto" value="#{usuarioProjetoController.selected.idProjeto}" >
+                            <f:selectItems value="#{projetoController.itemsAvailableSelectOne}"
+                                           var="idProjetoItem"
+                                           itemValue="#{idProjetoItem}"/>
+                        </p:selectOneMenu>
+                        
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usuarioProjetoController.create}" value="#{bundle.Save}" update="display,:UsuarioProjetoListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsuarioProjetoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="UsuarioProjetoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListProjetoTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="ProjetoListForm">
+                <p:panel header="#{bundle.ListProjetoTitle}">
+                    <p:dataTable id="datalist" value="#{projetoController.items}" var="item"
+                                 selectionMode="single" selection="#{projetoController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.idProjeto}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_idProjeto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idProjeto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_nomeProjeto}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.nomeProjeto}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_dataAtivacao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataAtivacao}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_dataDesativacao}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.dataDesativacao}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_idEmpresa}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idEmpresa}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListProjetoTitle_idStatus}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.idStatus}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{bundle.Create}" actionListener="#{projetoController.prepareCreate}" update=":ProjetoCreateForm" oncomplete="PF('ProjetoCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{bundle.View}" update=":ProjetoViewForm" oncomplete="PF('ProjetoViewDialog').show()" disabled="#{empty projetoController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{bundle.Edit}" update=":ProjetoEditForm" oncomplete="PF('ProjetoEditDialog').show()" disabled="#{empty projetoController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{bundle.Delete}" actionListener="#{projetoController.destroy}" update=":growl,datalist" disabled="#{empty projetoController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

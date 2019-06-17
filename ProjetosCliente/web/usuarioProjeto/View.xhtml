@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsuarioProjetoViewDlg" widgetVar="UsuarioProjetoViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.ViewUsuarioProjetoTitle}">
+            <h:form id="UsuarioProjetoViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usuarioProjetoController.selected != null}">
+                        <h:outputText value="#{bundle.ViewUsuarioProjetoLabel_idusuarioProjeto}"/>
+                        <h:outputText value="#{usuarioProjetoController.selected.idusuarioProjeto}" title="#{bundle.ViewUsuarioProjetoTitle_idusuarioProjeto}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioProjetoLabel_idProjeto}"/>
+                        <h:outputText value="#{usuarioProjetoController.selected.idProjeto}" title="#{bundle.ViewUsuarioProjetoTitle_idProjeto}"/>
+                        <h:outputText value="#{bundle.ViewUsuarioProjetoLabel_idUsuario}"/>
+                        <h:outputText value="#{usuarioProjetoController.selected.idUsuario}" title="#{bundle.ViewUsuarioProjetoTitle_idUsuario}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{bundle.Close}" onclick="UsuarioProjetoViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
